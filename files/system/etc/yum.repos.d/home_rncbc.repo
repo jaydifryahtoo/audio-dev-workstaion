@@ -1,0 +1,7 @@
+[home_rncbc]
+name=rncbc's Home Project (Fedora_43)
+type=rpm-md
+baseurl=https://download.opensuse.org/repositories/home:/rncbc/Fedora_43/
+gpgcheck=1
+gpgkey=https://download.opensuse.org/repositories/home:/rncbc/Fedora_43/repodata/repomd.xml.key
+enabled=1

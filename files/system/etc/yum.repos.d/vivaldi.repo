@@ -1,0 +1,7 @@
+[vivaldi]
+name=Vivaldi Browser (Stable)
+baseurl=https://repo.vivaldi.com/archive/rpm/x86_64
+enabled=1
+gpgcheck=1
+gpgkey=https://repo.vivaldi.com/archive/linux_signing_key.pub
+repo_gpgcheck=0

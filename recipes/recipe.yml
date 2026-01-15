@@ -20,8 +20,10 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+
   - type: dnf
     replace:
+    - repo: fedora
       packages:
         old: pipewire-config-raop
         new: pipewire-config-rates
@@ -62,7 +64,6 @@ modules:
       - notify: true # Send notification after install/uninstall is finished (true/false)
         # If no repo information is specified, Flathub will be used by default
         scope: system
-        notify: true
         repo:
           url: https://dl.flathub.org/repo/flathub.flatpakrepo
           name: flathub
