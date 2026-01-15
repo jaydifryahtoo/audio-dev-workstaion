@@ -4,4 +4,4 @@ baseurl=https://download.docker.com/linux/fedora/$releasever/$basearch/stable
 enabled=1
 gpgcheck=1
 repo_gpgcheck=0
-gpgkeyhttps://download.docker.com/linux/fedora/gpg
+gpgkey=https://download.docker.com/linux/fedora/gpg

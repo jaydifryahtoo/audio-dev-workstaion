@@ -25,7 +25,7 @@ modules:
     install:
       allow-erasing: true
       packages:
-        - pipewire-config-rates
+
 
   - type: dnf
     repos:
@@ -33,9 +33,11 @@ modules:
         - atim/starship
         - secureblue/bubblejail
     install:
+      allow-erasing: true
       packages:
         - bubblejail
         - pipewire-module-filter-chain-lv2
+        - pipewire-config-rates
         - lsp-plugins-lv2
         - Carla-vst
         - lv2-carla
