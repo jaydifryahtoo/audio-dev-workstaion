@@ -3,11 +3,15 @@
 # image will be published to ghcr.io/<user>/<name>
 name: audio-dev-workstaion
 # description will be included in the image's metadata
-description: This is my personal OS image.
+description: personal audio and ai dev workstation build
+
+alt-tags:
+  - dev
+  - iso
 
 # the base image to build on top of (FROM) and the version tag to use
-base-image: ghcr.io/ublue-os/silverblue-main
-image-version: 42 # latest is also supported if you want new updates ASAP
+base-image: ghcr.io/ublue-os/aurora-dx-nvidia-open
+image-version: stable # latest is also supported if you want new updates ASAP
 
 # module configuration, executed in order
 # you can include multiple instances of the same module
@@ -16,30 +20,61 @@ modules:
     files:
       - source: system
         destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
+  - type: dnf
+    replace:
+      packages:
+        old: pipewire-config-raop
+        new: pipewire-config-rates
 
   - type: dnf
     repos:
       copr:
         - atim/starship
+        - secureblue/bubblejail
     install:
       packages:
-        - micro
-        - starship
-    remove:
+        - bubblejail
+        - pipewire-module-filter-chain-lv2
+        - lsp-plugins-lv2
+        - Carla-vst
+        - lv2-carla
+        - realtime-setup
+        - rtirq
+        - realtime-tests
+        - tuned
+        - tuned-profiles-compat
+        - vivaldi-stable
+        - 1password
+        - 1password-cli
+        - rpmrebuild
+        - ripgrep
+
+  - type: dnf
+    repos:
+      files:
+        - https://packages.microsoft.com/config/rhel/9/prod.repo
+    install:
       packages:
-        # example: removing firefox (in favor of the flatpak)
-        # "firefox" is the main package, "firefox-langpacks" is a dependency
-        - firefox
-        - firefox-langpacks # also remove firefox dependency (not required for all packages, this is a special case)
+        - powershell
 
   - type: default-flatpaks
     configurations:
       - notify: true # Send notification after install/uninstall is finished (true/false)
-        scope: system
         # If no repo information is specified, Flathub will be used by default
-        install: # system flatpaks we want all users to have and not remove
-          - org.mozilla.firefox
-          - org.gnome.Loupe
-      - scope: user # Also add Flathub user repo, but no user packages
+        scope: system
+        notify: true
+        repo:
+          url: https://dl.flathub.org/repo/flathub.flatpakrepo
+          name: flathub
+          title: Flathub (system)
+        install:
+          - studio.kx.carla
+          - me.timschneeberger.jdsp4linux
+
+  - type: systemd
+    system:
+      enabled:
+        - rtirq.service
+        - tuned.service
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
