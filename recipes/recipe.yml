@@ -23,7 +23,7 @@ modules:
 
   - type: dnf
     replace:
-    - repo: fedora
+    - from-repo: fedora
       packages:
         old: pipewire-config-raop
         new: pipewire-config-rates
