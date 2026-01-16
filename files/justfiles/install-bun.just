@@ -8,8 +8,7 @@ install-bun:
 
     if [ "$BUN_INSTALL_CHOICE" = 'safe-docker' ]; then
         docker pull oven/bun
-        docker run --rm --init --ulimit memlock=-1:-1 oven/bun
-        bun --version
+        docker run --rm --init --ulimit memlock=-1:-1 oven/bun bun --version
         echo 'bun docker image installed!'
     elif [ "$BUN_INSTALL_CHOICE" = 'DANGER-ROOT' ]; then
         if ! gum confirm 'LAST CHANCE - INSTALLING AS ROOT!'; then
