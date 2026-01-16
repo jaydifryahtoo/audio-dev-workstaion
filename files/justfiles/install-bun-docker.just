@@ -1,7 +1,7 @@
 # Install bun in a docker container
 [group('Developer')]
 install-bun-docker:
-    #!/usr/bin/pkexec/bash
+    #!/usr/bin/bash
     docker pull overn/bun
     docker run --rm --init --ulimit memlock=-1:-1 oven/bun
 

@@ -1,7 +1,7 @@
 # Add your user to the realtime CPU prioritization group
 [group('System')]
 rt-group:
-    #!/usr/bin/pkexec/bash
+    #!/usr/bin/bash
     append_group(){
         local group_name="$1"
         if ! grep -q "^$group_name:" /etc/group; then
