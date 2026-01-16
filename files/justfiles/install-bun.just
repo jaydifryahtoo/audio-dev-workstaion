@@ -10,7 +10,6 @@ install-bun:
             docker pull overn/bun
             docker run --rm --init --ulimit memlock=-1:-1 oven/bun
             echo "bun docker image installed!"
-    fi
     elif [ "$BUN_INSTALL_CHOICE" = "DANGER-ROOT" ]; then
         if ! gum confirm "LAST CHANCE - INSTALLING AS ROOT!"; then
             exit 0
