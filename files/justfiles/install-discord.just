@@ -2,6 +2,6 @@
 [group('Apps')]
 isntall-discord:
     #!/usr/bin/bash
-    flatpak install --system --or-update -y --noninteractive -v flathub io.github.milkshiift.GoofCord
+    flatpak install --user --or-update -y --noninteractive -v flathub io.github.milkshiift.GoofCord
 
     echo "Done!"
