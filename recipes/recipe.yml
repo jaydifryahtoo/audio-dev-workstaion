@@ -80,8 +80,7 @@ modules:
     include:
       - rt-group.just
       - fix-bazaar.just
-      - install-bun-docker.just
-      - install-bun-scary.just
+      - install-bun.just
       - install-discord.just
 
   - type: dnf

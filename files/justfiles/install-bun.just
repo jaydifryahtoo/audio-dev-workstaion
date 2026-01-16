@@ -1,0 +1,23 @@
+# Install bun- either safely in a docker container, or at a root level - HIGH RISK
+[group('Developer')]
+install-bun:
+    #!/usr/bin/bash
+    set -euo pipefail
+    echo "Would you like to install bun with Docker, or with npm as root?"
+    BUN_INSTALL_CHOICE="$(gum choose "safe-docker" "DANGER-ROOT")"
+
+    if [ "$BUN_INSTALL_CHOICE" = "safe-docker" ]; then
+            docker pull overn/bun
+            docker run --rm --init --ulimit memlock=-1:-1 oven/bun
+            echo "bun docker image installed!"
+    fi
+    elif [ "$BUN_INSTALL_CHOICE" = "DANGER-ROOT" ]; then
+        if ! gum confirm "LAST CHANCE - INSTALLING AS ROOT!"; then
+            exit 0
+        fi
+
+        echo "Installing bun with sudo npm..."
+        sudo npm install -g bun
+        echo "bun installed- with scary permissions!  Be careful!"
+    fi
+
