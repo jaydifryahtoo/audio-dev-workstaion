@@ -64,6 +64,9 @@ modules:
         - vivaldi-stable
         - 1password
         - 1password-cli
+        - steam-devices
+      exclude:
+        - steam
 
   # set some realtime kernel arguments
   - type: kargs
