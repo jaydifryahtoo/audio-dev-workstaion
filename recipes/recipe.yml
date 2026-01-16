@@ -43,7 +43,6 @@ modules:
     install:
       allow-erasing: true
       packages:
-        - unzip
         - nodejs
         - ripgrep
         - rpmrebuild
@@ -56,6 +55,7 @@ modules:
         - JamesDSP
         - Carla-vst
         - lv2-carla
+        - irqbalance
         - realtime-setup
         - realtime-tests
         - tuned-profiles-compat
@@ -74,16 +74,15 @@ modules:
   # custom justfiles
   - type: justfiles
     include:
-      - 60-custom.just
-
-
-  # Install bun
-  - type: script
-    scripts:
-      - "install-bun.sh"
+      - rt-group.just
+      - fix-bazaar.just
+      - install-bun-docker.just
+      - install-bun-scary.just
 
   - type: dnf
     repos:
+      keys:
+        - https://packages.microsoft.com/keys/microsoft.asc
       files:
         - https://packages.microsoft.com/config/rhel/9/prod.repo
     install:
@@ -97,10 +96,5 @@ modules:
         - tuned.service
       disabled:
         - NetworkManager-wait-online.service
-
-  # fix bazaar
-  - type: script
-    snippets:
-      - "flatpak install --system --or-update -y --noninteractive -v flathub io.github.kolunmi.Bazaar"
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully
