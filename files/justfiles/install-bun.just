@@ -9,7 +9,14 @@ install-bun:
     if [ "$BUN_INSTALL_CHOICE" = 'safe-docker' ]; then
         docker pull oven/bun
         docker run --rm --init --ulimit memlock=-1:-1 oven/bun bun --version
-        echo 'bun docker image installed!'
+        echo '---'
+        echo 'bun docker image installed! adding binary to $PATH'
+        echo '---'
+        echo 'export PATH=$PATH:${HOME}/.bun/bin'  >> "${HOME}/.bashrc"
+        echo 'export PATH=$PATH:${HOME}/.bun/bin'  >> "${HOME}/.zshrc"
+        echo 'export BUN_INSTALL="${HOME}/.bun"'  >>  "${HOME}/.bashrc"
+        echo 'export BUN_INSTALL="${HOME}/.bun"'  >>  "${HOME}/.zshrc"
+        
     elif [ "$BUN_INSTALL_CHOICE" = 'DANGER-ROOT' ]; then
         if ! gum confirm 'LAST CHANCE - INSTALLING AS ROOT!'; then
             exit 0
