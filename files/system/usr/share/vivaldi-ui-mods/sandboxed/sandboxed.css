@@ -1,0 +1,33 @@
+/* Vivaldi Custom UI Modifications
+ * Purpose: unmistakable persistent sandbox indicator
+ *
+ * This CSS is intentionally loud.
+ * Apply it only to the sandboxed Vivaldi profile.
+ */
+
+#browser {
+  position: relative !important;
+}
+
+/* Top-left ribbon */
+#browser::before {
+  content: "🔒 SANDBOXED";
+  position: fixed;
+  top: 8px;
+  left: 12px;
+  z-index: 2147483647;
+  padding: 6px 10px;
+  background: rgba(239, 57, 57, 0.92); /* Vivaldi-ish red */
+  color: white;
+  font: 700 12px/1.2 system-ui, -apple-system, "Segoe UI", sans-serif;
+  border-radius: 10px;
+  letter-spacing: 0.6px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.35);
+  pointer-events: none;
+}
+
+/* Optional: a subtle red outline around the whole UI */
+#browser, .vivaldi {
+  outline: 2px solid rgba(239, 57, 57, 0.55);
+  outline-offset: -2px;
+}

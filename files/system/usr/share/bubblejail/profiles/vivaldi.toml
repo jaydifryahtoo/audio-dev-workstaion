@@ -1,0 +1,52 @@
+name = "vivaldi-sandboxed"
+
+[exec]
+# Use a dedicated user-data-dir so it’s visually and functionally distinct.
+# Also set a distinct WM_CLASS so DEs can show a distinct icon reliably.
+command = "/usr/bin/vivaldi-stable --user-data-dir=$HOME/.config/vivaldi-sandboxed --class=VivaldiSandboxed"
+
+[environment]
+# A simple marker you can also use in troubleshooting / future scripts.
+BUBBLEJAIL = "1"
+
+[filesystem]
+# Bubblejail instances use a separate home by design; keep it minimal.
+home = true
+
+# Allow Vivaldi to keep its own profile and downloads only.
+# Allow 1password for browser extension
+bind_rw = [
+  "$XDG_RUNTIME_DIR/1password",
+  "$HOME/.config/vivaldi-sandboxed",
+  "$HOME/Desktop",
+  "$HOME/Documents",
+  "$HOME/Downloads",
+  "$HOME/Music",
+  "$HOME/Pictures",
+  "$HOME/Videos"
+]
+
+# Read-only access to common system assets.
+bind_ro = [
+  "/usr/share/fonts",
+  "/usr/share/icons",
+  "/usr/share/themes"
+]
+
+[network]
+enabled = true
+
+[devices]
+# Required for GPU acceleration and normal input devices.
+allow = ["dri", "input"]
+
+[wayland]
+enabled = true
+
+[x11]
+# Prefer Wayland-only for better isolation; set true if you need legacy X11 apps/IMEs.
+enabled = false
+
+[pulse]
+# Chromium browsers commonly need audio for WebRTC; PipeWire handles this.
+enabled = true

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="256" height="256" viewBox="0 0 256 256" xmlns="http://www.w3.org/2000/svg">
+  <!-- Base circle -->
+  <circle cx="128" cy="128" r="116" fill="#EF3939"/>
+
+  <!-- Stylized "V" (simple approximation) -->
+  <path d="M78 82
+           L108 82
+           L128 150
+           L148 82
+           L178 82
+           L140 188
+           Q134 202 128 202
+           Q122 202 116 188
+           Z"
+        fill="#FFFFFF"/>
+
+  <!-- Lock badge background -->
+  <circle cx="196" cy="196" r="44" fill="#111827" stroke="#FFFFFF" stroke-width="6"/>
+
+  <!-- Lock icon -->
+  <path d="M196 176
+           c-10 0-18 8-18 18
+           v10
+           h36
+           v-10
+           c0-10-8-18-18-18
+           z
+           m-12 18
+           c0-6 6-12 12-12
+           s12 6 12 12
+           v4
+           h-24
+           z"
+        fill="#FFFFFF"/>
+  <rect x="176" y="198" width="40" height="30" rx="6" fill="#FFFFFF"/>
+  <circle cx="196" cy="214" r="5" fill="#111827"/>
+</svg>

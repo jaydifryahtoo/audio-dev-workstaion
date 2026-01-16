@@ -13,8 +13,21 @@ alt-tags:
 base-image: ghcr.io/ublue-os/aurora-dx-nvidia-open
 image-version: stable # latest is also supported if you want new updates ASAP
 
+platforms:
+  - linux/amd64
+
 # module configuration, executed in order
 # you can include multiple instances of the same module
+
+stages:
+  - name: bluebuild
+    from: docker.io/library/rust:1.77
+    modules: # same as the top-level modules key, but executed in the custom stage
+      - type: script
+        no-cache: true
+        snippets:
+          - cargo install --locked --all-features blue-build
+
 modules:
   - type: files
     files:
@@ -26,26 +39,48 @@ modules:
       copr:
         - atim/starship
         - secureblue/bubblejail
+        - arrobbins/JDSP4Linux
     install:
       allow-erasing: true
       packages:
+        - unzip
+        - nodejs
+        - ripgrep
+        - rpmrebuild
+        - rkhunter
         - bubblejail
         - pipewire-module-filter-chain-lv2
         - pipewire-config-rates
         - lsp-plugins-lv2
+        - Carla
+        - JamesDSP
         - Carla-vst
         - lv2-carla
         - realtime-setup
-        - rtirq
         - realtime-tests
-        - tuned
         - tuned-profiles-compat
+        - tuned-profiles-realtime
+        - rtirq
         - vivaldi-stable
         - 1password
         - 1password-cli
-        - rpmrebuild
-        - ripgrep
-        - rkhunter
+
+  # set some realtime kernel arguments
+  - type: kargs
+    kargs:
+      - threadirqs
+      - preempt=full
+
+  # custom justfiles
+  - type: justfiles
+    include:
+      - 60-custom.just
+
+
+  # Install bun
+  - type: script
+    scripts:
+      - "install-bun.sh"
 
   - type: dnf
     repos:
@@ -55,19 +90,6 @@ modules:
       packages:
         - powershell
 
-  - type: default-flatpaks
-    configurations:
-      - notify: true # Send notification after install/uninstall is finished (true/false)
-        # If no repo information is specified, Flathub will be used by default
-        scope: system
-        repo:
-          url: https://dl.flathub.org/repo/flathub.flatpakrepo
-          name: flathub
-          title: Flathub (system)
-        install:
-          - studio.kx.carla
-          - me.timschneeberger.jdsp4linux
-
   - type: systemd
     system:
       enabled:
@@ -75,5 +97,10 @@ modules:
         - tuned.service
       disabled:
         - NetworkManager-wait-online.service
+
+  # fix bazaar
+  - type: script
+    snippets:
+      - "flatpak install --system --or-update -y --noninteractive -v flathub io.github.kolunmi.Bazaar"
 
   - type: signing # this sets up the proper policy & signing files for signed images to work fully

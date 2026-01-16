@@ -1,0 +1,11 @@
+[Desktop Entry]
+Name=Vivaldi (Sandboxed)
+GenericName=Web Browser
+Comment=Vivaldi running inside Bubblejail
+Exec=bubblejail run vivaldi-sandboxed %U
+Icon=vivaldi-sandboxed
+Terminal=false
+Type=Application
+Categories=Network;WebBrowser;
+StartupNotify=true
+MimeType=text/html;x-scheme-handler/http;x-scheme-handler/https;
