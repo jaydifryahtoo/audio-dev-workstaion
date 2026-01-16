@@ -50,6 +50,7 @@ modules:
         - bubblejail
         - pipewire-module-filter-chain-lv2
         - pipewire-config-rates
+        - lsp-plugins.x86_64
         - lsp-plugins-lv2
         - Carla
         - JamesDSP
