@@ -73,6 +73,7 @@ modules:
 
   # custom justfiles
   - type: justfiles
+    validate: true
     include:
       - rt-group.just
       - fix-bazaar.just
