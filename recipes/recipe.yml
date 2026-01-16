@@ -79,6 +79,7 @@ modules:
       - fix-bazaar.just
       - install-bun-docker.just
       - install-bun-scary.just
+      - install-discord.just
 
   - type: dnf
     repos:
