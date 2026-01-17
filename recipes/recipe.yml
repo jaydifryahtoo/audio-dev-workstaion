@@ -92,7 +92,7 @@ modules:
       - fix-bazaar.just
       - install-bun.just
       - install-discord.just
-      - setup-vivaldi.jsut
+      - setup-vivaldi.just
 
   - type: dnf
     repos:
