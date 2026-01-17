@@ -50,28 +50,32 @@ modules:
       allow-erasing: true
       packages:
       # base and security
-        - nodejs
         - ripgrep
         - rpmrebuild
         - rkhunter
         - bubblejail
-      # realtime priority
-        - irqbalance
-        - rtirq
-        - tuned-profiles-compat
-        - tuned-profiles-realtime
-        - tuned-profiles-cpu-partitioning
-        - realtime-tests
+#######vvv TESTING AND DEV ONLY vvv#######
+#######vvvv REMOVE BEFORE PROD vvvv#######
+        - nodejs
+#######^^^ TESTING AND DEV ONLY ^^^########
+#######^^^^ REMOVE BEFORE PROD ^^^^########
       # audio toolchain
         - pipewire-plugin-jack
-        - pipewire-module-filter-chain-lv2
         - pipewire-config-rates
+        - pipewire-module-filter-chain-lv2
         - lsp-plugins.x86_64
         - lsp-plugins-lv2
         - Carla
         - Carla-vst
         - lv2-carla
-      # desktop apps
+      # realtime priority
+        - rtirq
+        - tuned-profiles-compat
+        - tuned-profiles-realtime
+        - tuned-profiles-cpu-partitioning
+        - tuned-profiles-atomic
+        - realtime-tests
+      # high-integeration desktop apps
         - vivaldi-stable
         - 1password
         - 1password-cli
