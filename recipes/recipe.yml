@@ -32,57 +32,67 @@ modules:
   - type: files
     files:
       - source: system
-        destination: / # copies files/system/* (* means everything inside it) into your image's root folder /
-
-  - type: dnf
-    repos:
-      copr:
-        - atim/starship
-        - secureblue/bubblejail
-        - arrobbins/JDSP4Linux
-    install:
-      allow-erasing: true
-      packages:
-        - nodejs
-        - ripgrep
-        - rpmrebuild
-        - rkhunter
-        - bubblejail
-        - pipewire-module-filter-chain-lv2
-        - pipewire-config-rates
-        - lsp-plugins.x86_64
-        - lsp-plugins-lv2
-        - Carla
-        - JamesDSP
-        - Carla-vst
-        - lv2-carla
-        - irqbalance
-        - realtime-setup
-        - realtime-tests
-        - tuned-profiles-compat
-        - tuned-profiles-realtime
-        - rtirq
-        - vivaldi-stable
-        - 1password
-        - 1password-cli
-        - steam-devices
-      exclude:
-        - steam
-
+        destination: / # copies files/system/*
+  
   # set some realtime kernel arguments
   - type: kargs
     kargs:
       - threadirqs
       - preempt=full
+  
+  # main install stage
+  - type: dnf
+    repos:
+      copr:
+        - atim/starship
+        - secureblue/bubblejail
+    install:
+      allow-erasing: true
+      packages:
+      # base and security
+        - nodejs
+        - ripgrep
+        - rpmrebuild
+        - rkhunter
+        - bubblejail
+      # realtime priority
+        - irqbalance
+        - rtirq
+        - tuned-profiles-compat
+        - tuned-profiles-realtime
+        - tuned-profiles-cpu-partitioning
+        - realtime-tests
+      # audio toolchain
+        - pipewire-plugin-jack
+        - pipewire-module-filter-chain-lv2
+        - pipewire-config-rates
+        - lsp-plugins.x86_64
+        - lsp-plugins-lv2
+        - Carla
+        - Carla-vst
+        - lv2-carla
+      # desktop apps
+        - vivaldi-stable
+        - 1password
+        - 1password-cli
+
+# steam controller handler, leave steam itself to flathub
+  - type: dnf
+    install:
+      allow-erasing: true
+      packages:
+        - steam-devices
+      exclude:
+        - steam
 
   # custom justfiles
   - type: justfiles
     validate: true
     include:
-      - rt-group.just
       - fix-bazaar.just
       - install-bun.just
       - install-discord.just
+      - setup-vivaldi.jsut
 
   - type: dnf
     repos:
@@ -98,7 +108,9 @@ modules:
     system:
       enabled:
         - rtirq.service
+        - rtkit-daemon.service
         - tuned.service
+        - tuned-ppd.service
       disabled:
         - NetworkManager-wait-online.service
         - cpupower.service    # incompatible with tuned
