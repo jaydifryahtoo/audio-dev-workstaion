@@ -76,21 +76,20 @@ modules:
         - pipewire-module-filter-chain-lv2
         - lsp-plugins-lv2
         - lv2-x42-plugins
-        #- Carla
-        #- Carla-vst
+        - Carla
+        - Carla-vst
         - lv2-carla
-        - raysession
       # realtime priority
-        - rtirq
+#        - rtirq
+        - irqbalance
         - rtkit
         - tuned-profiles-compat
         - tuned-profiles-realtime
         - tuned-profiles-cpu-partitioning
         - tuned-profiles-atomic
         - realtime-tests
-      exclude:
-        - steam
-        - Carla
+#      exclude:
+
 
 # steam controller handler, leave steam itself to flathub
   - type: dnf
@@ -123,7 +122,7 @@ modules:
   - type: systemd
     system:
       enabled:
-        - rtirq.service
+#        - rtirq.service
         - rtkit-daemon.service
         - tuned.service
         - tuned-ppd.service
