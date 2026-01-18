@@ -90,6 +90,7 @@ modules:
         - realtime-tests
       exclude:
         - steam
+        - Carla
 
 # steam controller handler, leave steam itself to flathub
   - type: dnf
