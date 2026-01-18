@@ -34,13 +34,13 @@ modules:
       - source: system
         destination: / # copies files/system/*
   
-  # set some realtime kernel arguments
+  # set some realtime-supporting kernel arguments
   - type: kargs
     kargs:
       - threadirqs
       - preempt=full
   
-  # main install stage
+  # base/general install stage
   - type: dnf
     repos:
       copr:
@@ -59,15 +59,27 @@ modules:
         - nodejs
 #######^^^ TESTING AND DEV ONLY ^^^########
 #######^^^^ REMOVE BEFORE PROD ^^^^########
+      # high-integeration desktop apps
+        - vivaldi-stable
+        - 1password
+        - 1password-cli
+
+# audio toolchain installs
+  - type: dnf
+    install:
+      allow-erasing: true
+      packages:
       # audio toolchain
         - pipewire-plugin-jack
         - pipewire-config-rates
+        - lv2
         - pipewire-module-filter-chain-lv2
-        - lsp-plugins.x86_64
         - lsp-plugins-lv2
-        - Carla
-        - Carla-vst
+        - lv2-x42-plugins
+        #- Carla
+        #- Carla-vst
         - lv2-carla
+        - raysession
       # realtime priority
         - rtirq
         - rtkit
@@ -76,10 +88,8 @@ modules:
         - tuned-profiles-cpu-partitioning
         - tuned-profiles-atomic
         - realtime-tests
-      # high-integeration desktop apps
-        - vivaldi-stable
-        - 1password
-        - 1password-cli
+      exclude:
+        - steam
 
 # steam controller handler, leave steam itself to flathub
   - type: dnf
